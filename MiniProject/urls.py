@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from gui import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", views.redirect_view),
+    path("pageno=<int:pageno>", views.homepage),
+    path("product/<id>/", views.productpage),
 ]

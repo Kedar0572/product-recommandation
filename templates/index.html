@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Mini Project</title>
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load mathfilters %}
+
+
+{% block head %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+    <div class="container m-4 rounded-3">
+        <h1 class="text-center display-1 bg-light p-5">Products</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+        <ul class="pagination">
+            {% if startpage > 1 %}
+                <li class="page-item"><a class="page-link" href="/pageno={{ startpage|sub:1 }}">Previous</a></li>
+            {% endif %}
+            {% for page in pages %}
+                {% if currentpage == page %}
+                    <li class="page-item"><a class="page-link bg-primary text-white" href="/pageno={{ page }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="/pageno={{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if endpage != pageno %}
+                <li class="page-item"><a class="page-link" href="/pageno={{ endpage|add:1 }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for product in products %}
+            <div class="card d-inline m-2 align-self-start col-2">
+                <img src="{{ product.medium_image_url }}" class="card-img-top img-thumbnail" width="100%" height="100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title|capfirst }}</h5>
+                    <p class="card-text">
+                        Price: {{ product.formatted_price }}
+                    </p>
+                    <a href="/product/{{ product.asin }}" class="btn btn-outline-primary">Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

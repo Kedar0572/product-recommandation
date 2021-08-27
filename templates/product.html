@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block head %}
+     {{ product.title|capfirst }}
+{% endblock %}
+
+
+
+{% block main %}
+    <div class="container mb-5">
+
+        <div class="row vh-100 w-75 m-auto d-flex align-items-center justify-content-center">
+            <div class="col-5 h-75">
+                <div class="card shadow-lg h-100 p-4">
+                    <img src="{{ product.large_image_url }}" class="mh-100 h-100">
+                </div>
+            </div>
+
+            <div class="col-7 mb-5">
+                <div class="card w-100 shadow-lg p-4">
+                    <div class="card-body">
+                        <h1 class="card-title ">{{ product.title|capfirst }}</h1>
+                        <p class="card-text">
+
+                        <ul class="list-group">
+                            <li class="list-group-item">Brand: {{ product.brand }}</li>
+                            <li class="list-group-item">Type: {{ product.product_type_name }}</li>
+                            <li class="list-group-item">Color: {{ product.color }}</li>
+                            <li class="list-group-item">Price: {{ product.formatted_price }}</li>
+
+                        </ul>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="container mt-5 pt-5">
+        <h1 class="display-3 text-center">Suggestions</h1>
+        <h1 class=" text-center">BAG OF WORDS</h1>
+        <div class="d-flex justify-content-center flex-wrap">
+            {% for product in suggestions_bow %}
+                <div class="card d-inline m-2 col-2 p-3">
+                    <div class="w-100 d-flex align-items-center justify-content-center">
+                        <img src="{{ product.medium_image_url }}" class="h-100">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title|capfirst }}</h5>
+                        <p class="card-text">
+                            Price: {{ product.formatted_price }}
+                        </p>
+                    </div>
+                <a href="/product/{{ product.asin }}" class="btn btn-outline-primary align-bottom">Details</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container mt-5 pt-5">
+
+        <h1 class=" text-center">Word 2 Vec</h1>
+        <div class="d-flex justify-content-center flex-wrap">
+            {% for product in suggestions_w2v %}
+                <div class="card d-inline m-2 col-2 p-3">
+                    <div class="w-100 d-flex align-items-center justify-content-center">
+                        <img src="{{ product.medium_image_url }}" class="h-100">
+                    </div>
+                    <div class="card-body h-100">
+                        <h5 class="card-title">{{ product.title|capfirst }}</h5>
+                        <p class="card-text">
+                            Price: {{ product.formatted_price }}
+                        </p>
+                        <a href="/product/{{ product.asin }}" class="btn btn-outline-primary mt-auto">Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
