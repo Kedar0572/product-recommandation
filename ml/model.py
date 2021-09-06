@@ -32,10 +32,6 @@ def avg_w2v_model(doc_id, num_results):
 
     indices = np.argsort(pairwise_dist.flatten())[0:num_results]
 
-    pdists = np.sort(pairwise_dist.flatten())[0:num_results]
-
     df_indices = list(data.index[indices])
 
     return df_indices
-
-# print(avg_w2v_model(10, 10))
